@@ -1,4 +1,3 @@
-// screens/AttendanceScreen.js
 import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, SafeAreaView, ActivityIndicator, StyleSheet, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -26,7 +25,6 @@ export default function AttendanceScreen({ route }) {
         const data = doc.data();
         const sessionId = data.sessionId;
 
-        // Skip jika data tidak memiliki sessionId
         if (!sessionId) return acc;
 
         if (!acc[sessionId]) {
@@ -57,10 +55,7 @@ export default function AttendanceScreen({ route }) {
   };
 
   useFocusEffect(useCallback(() => { fetchAttendanceData(); }, [username]));
-
-  // --- FUNGSI RENDERITEM YANG DIPERBAIKI ---
   const renderItem = ({ item }) => {
-    // Pengaman: Jika item.present atau item.absent tidak ada, gunakan array kosong
     const presentList = item.present || [];
     const absentList = item.absent || [];
 
