@@ -1,4 +1,3 @@
-// screens/CreateAssignmentScreen.js
 import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, TouchableOpacity, Alert, Platform
@@ -47,12 +46,12 @@ export default function CreateAssignmentScreen({ route, navigation }) {
         className: selectedClass,
         courseName: selectedCourse,
         details: details,
-        link: link || '', // Simpan string kosong jika link tidak diisi
+        link: link || '',
         deadline: Timestamp.fromDate(deadline),
         createdAt: Timestamp.now()
       });
       Alert.alert('Sukses', 'Assignment berhasil dibuat.');
-      navigation.goBack(); // Kembali ke HomeScreen setelah berhasil
+      navigation.goBack(); 
     } catch (error) {
       console.error("Error creating assignment: ", error);
       Alert.alert('Error', 'Terjadi kesalahan saat menyimpan assignment.');
@@ -71,10 +70,7 @@ export default function CreateAssignmentScreen({ route, navigation }) {
         <View style={styles.userInfo}>
           <Text style={styles.userName}>{namaLengkap}</Text>
         </View>
-
         <Text style={styles.formTitle}>CREATE ASSIGNMENT</Text>
-
-        {/* Input Class */}
         <Text style={styles.label}>Class</Text>
         <View style={styles.pickerContainer}>
           <Picker
@@ -86,8 +82,6 @@ export default function CreateAssignmentScreen({ route, navigation }) {
             <Picker.Item label="TI-23-PA" value="TI-23-PA" />
           </Picker>
         </View>
-
-        {/* Input Course */}
         <Text style={styles.label}>Course</Text>
         <View style={styles.pickerContainer}>
           <Picker
@@ -99,8 +93,6 @@ export default function CreateAssignmentScreen({ route, navigation }) {
             <Picker.Item label="Pengolahan Citra" value="Pengolahan Citra" />
           </Picker>
         </View>
-
-        {/* Input Detail */}
         <Text style={styles.label}>Assignment detail *</Text>
         <TextInput
           style={styles.inputMultiline}
@@ -110,8 +102,6 @@ export default function CreateAssignmentScreen({ route, navigation }) {
           value={details}
           onChangeText={setDetails}
         />
-
-        {/* Input Link */}
         <Text style={styles.label}>Assignment link</Text>
         <TextInput
           style={styles.input}
@@ -119,8 +109,6 @@ export default function CreateAssignmentScreen({ route, navigation }) {
           value={link}
           onChangeText={setLink}
         />
-
-        {/* Input Deadline */}
         <Text style={styles.label}>Deadline</Text>
         <View style={styles.dateContainer}>
           <TouchableOpacity onPress={() => showMode('date')} style={styles.datePickerButton}>
