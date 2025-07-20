@@ -1,4 +1,3 @@
-// screens/SpecialAttendanceScreen.js
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, TouchableOpacity, Alert, ActivityIndicator
@@ -12,8 +11,8 @@ import { useFocusEffect } from '@react-navigation/native';
 export default function SpecialAttendanceScreen({ route, navigation }) {
   const { username, namaLengkap } = route.params;
 
-  const [allCourses, setAllCourses] = useState([]); // <-- NEW: Store all courses
-  const [filteredCourses, setFilteredCourses] = useState([]); // <-- NEW: Store filtered courses
+  const [allCourses, setAllCourses] = useState([]); 
+  const [filteredCourses, setFilteredCourses] = useState([]); 
   const [selectedCourse, setSelectedCourse] = useState('');
   const [selectedClass, setSelectedClass] = useState('');
   const [studentsInClass, setStudentsInClass] = useState([]);
@@ -22,16 +21,13 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
   const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(true);
   const [fetchingStudents, setFetchingStudents] = useState(false);
-
-  // Hardcoded classes for now, can be fetched from Firestore if needed
   const availableClasses = ["TI-23-KA", "TI-23-PA"];
-
   const fetchDosenCourses = async () => {
     try {
       const q = query(collection(db, "courses"), where("dosenId", "==", username));
       const snapshot = await getDocs(q);
       const fetchedCourses = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setAllCourses(fetchedCourses); // Store all courses
+      setAllCourses(fetchedCourses); 
     } catch (error) {
       console.error("Error fetching courses: ", error);
       Alert.alert("Error", "Gagal memuat daftar mata kuliah.");
@@ -74,18 +70,16 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
   useEffect(() => {
     fetchStudentsInClass(selectedClass);
   }, [selectedClass]);
-
-  // NEW: Effect to filter courses based on selectedClass
+  
   useEffect(() => {
     if (selectedClass) {
       const filtered = allCourses.filter(course => course.className === selectedClass);
       setFilteredCourses(filtered);
-      // Reset selected course if the current one is not in the new filtered list
       if (!filtered.some(course => course.id === selectedCourse)) {
         setSelectedCourse('');
       }
     } else {
-      setFilteredCourses([]); // No class selected, no courses shown
+      setFilteredCourses([]); 
       setSelectedCourse('');
     }
   }, [selectedClass, allCourses]);
@@ -100,8 +94,6 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
       const today = new Date();
       const startOfDay = new Date(today.setHours(0, 0, 0, 0));
       const endOfDay = new Date(today.setHours(23, 59, 59, 999));
-
-      // Cek apakah mahasiswa sudah diabsen untuk mata kuliah ini hari ini
       const attendanceCheckQuery = query(
         collection(db, "attendance"),
         where("userId", "==", selectedStudent),
@@ -116,7 +108,7 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
         return;
       }
 
-      const courseData = allCourses.find(c => c.id === selectedCourse); // Use allCourses to find course data
+      const courseData = allCourses.find(c => c.id === selectedCourse); 
       const studentData = studentsInClass.find(s => s.username === selectedStudent);
 
       await addDoc(collection(db, "attendance"), {
@@ -131,7 +123,6 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
         notes: notes || '',
       });
       Alert.alert('Sukses', `Absensi (${attendanceStatus}) berhasil dicatat untuk ${studentData?.namaLengkap || selectedStudent}.`);
-      // Reset form
       setSelectedClass('');
       setSelectedCourse('');
       setSelectedStudent('');
@@ -171,8 +162,6 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
         </View>
 
         <Text style={styles.formTitle}>ABSENSI IZIN / SAKIT</Text>
-
-        {/* Input Class */}
         <Text style={styles.label}>Pilih Kelas *</Text>
         <View style={styles.pickerContainer}>
           <Picker
@@ -185,23 +174,21 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
             ))}
           </Picker>
         </View>
-
-        {/* Input Course */}
+            
         <Text style={styles.label}>Pilih Mata Kuliah *</Text>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={selectedCourse}
             onValueChange={(itemValue) => setSelectedCourse(itemValue)}
-            enabled={filteredCourses.length > 0} // Disable picker if no filtered courses
+            enabled={filteredCourses.length > 0} 
           >
             <Picker.Item label={filteredCourses.length > 0 ? "-- Pilih Mata Kuliah --" : "Pilih kelas terlebih dahulu"} value="" />
-            {filteredCourses.map(course => ( // Use filteredCourses here
+            {filteredCourses.map(course => ( 
               <Picker.Item key={course.id} label={`${course.name} (${course.className})`} value={course.id} />
             ))}
           </Picker>
         </View>
-
-        {/* Input Mahasiswa */}
+              
         <Text style={styles.label}>Pilih Mahasiswa *</Text>
         <View style={styles.pickerContainer}>
           {fetchingStudents ? (
@@ -210,7 +197,7 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
             <Picker
               selectedValue={selectedStudent}
               onValueChange={(itemValue) => setSelectedStudent(itemValue)}
-              enabled={studentsInClass.length > 0} // Disable if no students are loaded
+              enabled={studentsInClass.length > 0}
             >
               <Picker.Item label={studentsInClass.length > 0 ? "-- Pilih Mahasiswa --" : "Pilih kelas terlebih dahulu"} value="" />
               {studentsInClass.map(student => (
@@ -219,8 +206,7 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
             </Picker>
           )}
         </View>
-
-        {/* Input Status Absensi */}
+            
         <Text style={styles.label}>Status Absensi *</Text>
         <View style={styles.pickerContainer}>
           <Picker
@@ -233,7 +219,6 @@ export default function SpecialAttendanceScreen({ route, navigation }) {
           </Picker>
         </View>
 
-        {/* Input Keterangan */}
         <Text style={styles.label}>Keterangan (Opsional)</Text>
         <TextInput
           style={styles.inputMultiline}
