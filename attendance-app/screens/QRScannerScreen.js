@@ -1,4 +1,3 @@
-// screens/QRScannerScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, Alert, StyleSheet, SafeAreaView } from 'react-native';
 import { CameraView, Camera } from "expo-camera";
