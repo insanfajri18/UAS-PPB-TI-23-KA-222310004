@@ -1,4 +1,3 @@
-// screens/DosenHomeScreen.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Alert, StyleSheet, TouchableOpacity, StatusBar, BackHandler, ActivityIndicator, FlatList, SafeAreaView } from 'react-native';
 import { useIsFocused, useFocusEffect } from '@react-navigation/native';
@@ -136,7 +135,6 @@ export default function DosenHomeScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
       <View style={styles.dashboardContainer}>
-        {/* Tombol Create Assignment */}
         <TouchableOpacity 
           style={[styles.createButton, activeSessionId && styles.buttonDisabled]} 
           onPress={() => navigation.navigate('CreateAssignment', { username, namaLengkap: fullName })}
@@ -146,7 +144,6 @@ export default function DosenHomeScreen({ route, navigation }) {
           <Text style={styles.createButtonText}>Create Assignment</Text>
         </TouchableOpacity>
 
-        {/* Tombol Catat Absensi Khusus */}
         <TouchableOpacity 
           style={[styles.specialAttendanceButton, activeSessionId && styles.buttonDisabled]} 
           onPress={() => navigation.navigate('SpecialAttendance', { username, namaLengkap: fullName })}
@@ -191,15 +188,14 @@ const styles = StyleSheet.create({
     createButton: { flexDirection: 'row', backgroundColor: '#5E00AB', padding: 15, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginBottom: 10, elevation: 3 }, // Changed marginBottom
     createButtonText: { color: 'white', fontSize: 16, fontWeight: 'bold', marginLeft: 10 },
     
-    // NEW STYLE FOR SPECIAL ATTENDANCE BUTTON
     specialAttendanceButton: {
       flexDirection: 'row', 
-      backgroundColor: '#007BFF', // A different color for distinction
+      backgroundColor: '#007BFF', 
       padding: 15, 
       borderRadius: 10, 
       justifyContent: 'center', 
       alignItems: 'center', 
-      marginBottom: 20, // Keep some margin
+      marginBottom: 20, 
       elevation: 3 
     },
     specialAttendanceButtonText: {
