@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -6,7 +5,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// Import semua screen
 import SplashScreen from './screens/SplashScreen';
 import LoginScreen from './screens/LoginScreen';
 import DosenHomeScreen from './screens/DosenHomeScreen';
@@ -15,7 +13,7 @@ import HistoryScreen from './screens/HistoryScreen';
 import CreateAssignmentScreen from './screens/CreateAssignmentScreen';
 import QRGeneratorScreen from './screens/QRGeneratorScreen';
 import AttendanceScreen from './screens/AttendanceScreen';
-import SpecialAttendanceScreen from './screens/SpecialAttendanceScreen'; // <-- IMPORT BARU
+import SpecialAttendanceScreen from './screens/SpecialAttendanceScreen'; // 
 
 import { COLORS } from './styles/theme';
 
@@ -84,7 +82,6 @@ export default function App() {
         <Stack.Screen name="MahasiswaApp" component={MahasiswaTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="CreateAssignment" component={CreateAssignmentScreen} options={{ headerShown: false }} />
         <Stack.Screen name="QRGenerator" component={QRGeneratorScreen} options={{ title: 'Generate QR Absensi', headerStyle: { backgroundColor: COLORS.primary }, headerTintColor: 'white' }} />
-        {/* RUTE BARU UNTUK ABSENSI KHUSUS */}
         <Stack.Screen name="SpecialAttendance" component={SpecialAttendanceScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
