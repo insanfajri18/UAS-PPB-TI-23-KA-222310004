@@ -1,9 +1,8 @@
-// screens/QRGeneratorScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, Alert, TouchableOpacity, SafeAreaView, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import QRCode from 'react-native-qrcode-svg';
-import { collection, addDoc, getDocs, query, where, onSnapshot, Timestamp, writeBatch, doc, getDoc, limit } from 'firebase/firestore'; // Import 'limit'
+import { collection, addDoc, getDocs, query, where, onSnapshot, Timestamp, writeBatch, doc, getDoc, limit } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function QRGeneratorScreen({ route }) {
@@ -62,8 +61,6 @@ export default function QRGeneratorScreen({ route }) {
       Alert.alert("Error", "Silakan pilih mata kuliah terlebih dahulu.");
       return;
     }
-
-    // --- PERUBAHAN 1: PENGECEKAN PRESENSI YANG SUDAH ADA ---
     try {
       const today = new Date();
       const startOfDay = new Date(today.setHours(0, 0, 0, 0));
@@ -74,7 +71,7 @@ export default function QRGeneratorScreen({ route }) {
         where("courseId", "==", selectedCourse),
         where("timestamp", ">=", startOfDay),
         where("timestamp", "<=", endOfDay),
-        limit(1) // Cukup cek 1 dokumen saja untuk efisiensi
+        limit(1) 
       );
 
       const attendanceSnapshot = await getDocs(attendanceCheckQuery);
@@ -87,8 +84,6 @@ export default function QRGeneratorScreen({ route }) {
       Alert.alert("Error", "Gagal memverifikasi data presensi sebelumnya.");
       return;
     }
-    // --- AKHIR PERUBAHAN 1 ---
-
     const courseData = courses.find(c => c.id === selectedCourse);
     if (!courseData || !courseData.name || !courseData.className) {
         Alert.alert("Data Tidak Lengkap", "Data mata kuliah yang dipilih tidak lengkap.");
@@ -96,7 +91,6 @@ export default function QRGeneratorScreen({ route }) {
     }
     setIsLoading(true);
     try {
-      // --- PERUBAHAN 2: UBAH DURASI WAKTU JADI 20 DETIK ---
       const expirationTime = new Date(new Date().getTime() + 20 * 1000); // 20 detik
       const sessionDocRef = await addDoc(collection(db, "live_sessions"), {
         dosenId: username,
@@ -108,9 +102,8 @@ export default function QRGeneratorScreen({ route }) {
         active: true,
       });
       setSessionId(sessionDocRef.id);
-      setTimeLeft(20); // Atur countdown ke 20 detik
+      setTimeLeft(20); // countdown 20 detik
       setSessionEnded(false);
-      // --- AKHIR PERUBAHAN 2 ---
     } catch (error) {
       Alert.alert("Error", "Gagal membuat sesi QR Code.");
     } finally {
