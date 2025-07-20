@@ -1,4 +1,3 @@
-// screens/MahasiswaHomeScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, Alert, StyleSheet, TouchableOpacity, StatusBar, BackHandler } from 'react-native';
 import { Camera, CameraView } from 'expo-camera';
@@ -6,8 +5,6 @@ import { useIsFocused } from '@react-navigation/native';
 import { collection, query, where, getDocs, addDoc, doc, getDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import Icon from 'react-native-vector-icons/Feather';
-// Kita tidak lagi butuh COLORS dari theme untuk file ini
-// import { COLORS } from '../styles/theme'; 
 
 export default function MahasiswaHomeScreen({ route, navigation }) {
   const { username } = route.params || {};
@@ -108,7 +105,6 @@ export default function MahasiswaHomeScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Menggunakan warna hardcoded sesuai permintaan */}
       <StatusBar barStyle="light-content" backgroundColor={'#8300EF'} />
       <View style={styles.header}>
         <View style={styles.headerTitleContainer}>
@@ -140,7 +136,7 @@ export default function MahasiswaHomeScreen({ route, navigation }) {
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#f0f0f0' },
     header: { 
-      backgroundColor: '#8300EF', // <-- WARNA ASLI ANDA
+      backgroundColor: '#8300EF', 
       height: 240, 
       borderBottomLeftRadius: 40, 
       borderBottomRightRadius: 40, 
@@ -181,7 +177,6 @@ const styles = StyleSheet.create({
     permissionText: { color: 'white', fontSize: 16 },
     cardOverlay: { position: 'absolute', top: 0, left: 0, right: 0, alignItems: 'center', padding: 15 },
     cardTitle: { fontSize: 18, fontWeight: 'bold', color: 'white', backgroundColor: 'rgba(0,0,0,0.4)', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10 },
-    // --- STYLE TOMBOL DIKEMBALIKAN KE WARNA ASLI ANDA ---
     uploadButton: { 
       flexDirection: 'row', 
       backgroundColor: '#5E00AB', 
