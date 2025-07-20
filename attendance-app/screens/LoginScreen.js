@@ -1,4 +1,3 @@
-// screens/LoginScreen.js
 import React, { useState } from 'react';
 import {
   View,
@@ -39,8 +38,7 @@ export default function LoginScreen({ navigation }) {
       } else {
         const userDoc = querySnapshot.docs[0];
         const user = userDoc.data();
-
-        // Cek role pengguna dan arahkan ke navigasi yang sesuai
+        
         if (user.role === 'dosen') {
           navigation.replace("DosenApp", { username: user.username, role: user.role });
         } else {
