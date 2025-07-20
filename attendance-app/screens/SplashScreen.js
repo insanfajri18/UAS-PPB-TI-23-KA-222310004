@@ -1,5 +1,3 @@
-// screens/SplashScreen.js
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -32,10 +30,6 @@ const handleStart = () => {
       />
 
       <Text style={styles.title}>QR Attendance System</Text>
-
-      {/* Container untuk Aksi (Loading atau Tombol)
-        Sekarang menjadi bagian dari layout utama, bukan di bawah.
-      */}
       <View style={styles.actionContainer}>
         {!isReady ? (
           <ActivityIndicator size="large" color="white" />
@@ -54,15 +48,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: PRIMARY_COLOR,
-    justifyContent: 'center', // Ini akan membuat semua elemen di tengah vertikal
-    alignItems: 'center',     // Ini akan membuat semua elemen di tengah horizontal
+    justifyContent: 'center', 
+    alignItems: 'center',    
     padding: 20,
   },
   logo: {
     width: 220,
     height: 220,
     resizeMode: 'contain',
-    marginBottom: 20, // Beri sedikit jarak bawah dari logo
+    marginBottom: 20, 
   },
   title: {
     fontSize: 22,
@@ -70,11 +64,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
-  // Style 'bottomContainer' DIHAPUS
-  
-  // Style BARU untuk membungkus tombol/loading
   actionContainer: {
-    marginTop: 50, // Jarak dari judul ke tombol
+    marginTop: 50,
     width: '100%',
     alignItems: 'center',
   },
