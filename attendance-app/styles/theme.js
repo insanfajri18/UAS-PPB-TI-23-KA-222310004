@@ -1,16 +1,14 @@
-// styles/theme.js
-
 export const COLORS = {
-  primary: '#8300EF',      // Biru cerah untuk tombol dan header
-  background: '#F4F7FC',  // Abu-abu sangat terang untuk latar belakang
-  card: '#FFFFFF',         // Putih untuk kartu dan permukaan
-  text: '#333333',         // Hitam lembut untuk teks utama
-  textSecondary: '#888888',// Abu-abu untuk teks sekunder atau placeholder
+  primary: '#8300EF',      
+  background: '#F4F7FC',  
+  card: '#FFFFFF',      
+  text: '#333333',       
+  textSecondary: '#888888',
   white: '#FFFFFF',
   black: '#000000',
-  success: '#28A745',      // Hijau untuk pesan sukses
-  danger: '#DC3545',       // Merah untuk pesan error
-  border: '#E0E0E0',       // Abu-abu terang untuk garis tepi
+  success: '#28A745',    
+  danger: '#DC3545',      
+  border: '#E0E0E0',     
 };
 
 export const SIZES = {
