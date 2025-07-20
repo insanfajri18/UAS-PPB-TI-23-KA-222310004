@@ -1,4 +1,3 @@
-// screens/HistoryScreen.js
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, FlatList, SafeAreaView, ActivityIndicator, StyleSheet, Alert } from 'react-native';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
@@ -18,7 +17,6 @@ export default function HistoryScreen({ route }) {
     }
     setLoading(true);
     try {
-      // 1. Ambil semua data absensi
       const attendanceQuery = query(
         collection(db, "attendance"),
         where("userId", "==", username),
@@ -26,11 +24,8 @@ export default function HistoryScreen({ route }) {
       );
       const attendanceSnapshot = await getDocs(attendanceQuery);
       const attendanceData = attendanceSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-      // 2. Kumpulkan semua ID mata kuliah yang unik
       const courseIds = [...new Set(attendanceData.map(item => item.courseId))];
-
-      // 3. Ambil data nama mata kuliah dalam satu query
+      
       if (courseIds.length > 0) {
         const coursesQuery = query(collection(db, "courses"), where("__name__", "in", courseIds));
         const coursesSnapshot = await getDocs(coursesQuery);
@@ -38,8 +33,7 @@ export default function HistoryScreen({ route }) {
           map[doc.id] = doc.data().name;
           return map;
         }, {});
-
-        // 4. Gabungkan data absensi dengan nama mata kuliah
+        
         const combinedHistory = attendanceData.map(item => ({
           ...item,
           courseName: coursesMap[item.courseId] || item.courseId, // Tampilkan nama, atau ID jika nama tidak ditemukan
